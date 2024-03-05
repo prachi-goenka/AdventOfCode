@@ -7,31 +7,47 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .book {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 10px;
       display: flex;
       align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
     }
     .book img {
-      max-width: 100px;
-      margin-right: 10px;
+      width: 100px;
+      height: auto;
+      margin-right: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .book-details {
       flex-grow: 1;
     }
     .title {
+      font-size: 1.2em;
       font-weight: bold;
+      margin-bottom: 5px;
     }
     .author {
       font-style: italic;
+      color: #666;
     }
   </style>
 </head>
 <body>
-  <div id="library"></div>
+  <div class="container" id="library"></div>
 
   <script>
     // Sample array of books, authors, and image URLs
@@ -62,16 +78,3 @@
       const libraryContainer = document.getElementById("library");
       libraryContainer.innerHTML = ""; // Clear existing content
 
-      library.forEach(book => {
-        const bookElement = createBookElement(book);
-        libraryContainer.appendChild(bookElement);
-      });
-    }
-
-    // Display the library when the page loads
-    window.onload = function() {
-      displayLibrary(libraryData);
-    };
-  </script>
-</body>
-</html>
