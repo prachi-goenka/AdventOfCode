@@ -12,6 +12,15 @@
       border: 1px solid #ccc;
       padding: 10px;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .book img {
+      max-width: 100px;
+      margin-right: 10px;
+    }
+    .book-details {
+      flex-grow: 1;
     }
     .title {
       font-weight: bold;
@@ -25,13 +34,13 @@
   <div id="library"></div>
 
   <script>
-    // Sample array of books and authors
+    // Sample array of books, authors, and image URLs
     const libraryData = [
-      { title: "To Kill a Mockingbird", author: "Harper Lee" },
-      { title: "1984", author: "George Orwell" },
-      { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
-      { title: "Pride and Prejudice", author: "Jane Austen" },
-      { title: "The Catcher in the Rye", author: "J.D. Salinger" }
+      { title: "To Kill a Mockingbird", author: "Harper Lee", imageUrl: "https://via.placeholder.com/100" },
+      { title: "1984", author: "George Orwell", imageUrl: "https://via.placeholder.com/100" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", imageUrl: "https://via.placeholder.com/100" },
+      { title: "Pride and Prejudice", author: "Jane Austen", imageUrl: "https://via.placeholder.com/100" },
+      { title: "The Catcher in the Rye", author: "J.D. Salinger", imageUrl: "https://via.placeholder.com/100" }
     ];
 
     // Function to create HTML for each book
@@ -39,8 +48,11 @@
       const bookElement = document.createElement("div");
       bookElement.classList.add("book");
       bookElement.innerHTML = `
-        <div class="title">${book.title}</div>
-        <div class="author">${book.author}</div>
+        <img src="${book.imageUrl}" alt="Book Cover">
+        <div class="book-details">
+          <div class="title">${book.title}</div>
+          <div class="author">${book.author}</div>
+        </div>
       `;
       return bookElement;
     }
