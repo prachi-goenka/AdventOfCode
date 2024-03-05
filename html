@@ -7,9 +7,9 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      background-color: #f4f4f4;
     }
     .container {
       max-width: 800px;
@@ -17,28 +17,31 @@
       padding: 20px;
       background-color: #fff;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-gap: 20px;
     }
     .book {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
-    .book img {
-      width: 100px;
-      height: auto;
-      margin-right: 20px;
+      padding: 15px;
+      background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+    .book img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
     .book-details {
-      flex-grow: 1;
+      margin-top: 10px;
     }
     .title {
-      font-size: 1.2em;
       font-weight: bold;
       margin-bottom: 5px;
+      color: #333;
     }
     .author {
       font-style: italic;
@@ -47,16 +50,19 @@
   </style>
 </head>
 <body>
-  <div class="container" id="library"></div>
+  <div class="container">
+    <h1 style="text-align: center;">Digital Library</h1>
+    <div class="library-grid" id="library"></div>
+  </div>
 
   <script>
     // Sample array of books, authors, and image URLs
     const libraryData = [
-      { title: "To Kill a Mockingbird", author: "Harper Lee", imageUrl: "https://via.placeholder.com/100" },
-      { title: "1984", author: "George Orwell", imageUrl: "https://via.placeholder.com/100" },
-      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", imageUrl: "https://via.placeholder.com/100" },
-      { title: "Pride and Prejudice", author: "Jane Austen", imageUrl: "https://via.placeholder.com/100" },
-      { title: "The Catcher in the Rye", author: "J.D. Salinger", imageUrl: "https://via.placeholder.com/100" }
+      { title: "To Kill a Mockingbird", author: "Harper Lee", imageUrl: "https://via.placeholder.com/150" },
+      { title: "1984", author: "George Orwell", imageUrl: "https://via.placeholder.com/150" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", imageUrl: "https://via.placeholder.com/150" },
+      { title: "Pride and Prejudice", author: "Jane Austen", imageUrl: "https://via.placeholder.com/150" },
+      { title: "The Catcher in the Rye", author: "J.D. Salinger", imageUrl: "https://via.placeholder.com/150" }
     ];
 
     // Function to create HTML for each book
@@ -78,3 +84,16 @@
       const libraryContainer = document.getElementById("library");
       libraryContainer.innerHTML = ""; // Clear existing content
 
+      library.forEach(book => {
+        const bookElement = createBookElement(book);
+        libraryContainer.appendChild(bookElement);
+      });
+    }
+
+    // Display the library when the page loads
+    window.onload = function() {
+      displayLibrary(libraryData);
+    };
+  </script>
+</body>
+</html>
