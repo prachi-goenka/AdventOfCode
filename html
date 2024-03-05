@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Library</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .book {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .title {
+      font-weight: bold;
+    }
+    .author {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="library"></div>
+
+  <script>
+    // Sample array of books and authors
+    const libraryData = [
+      { title: "To Kill a Mockingbird", author: "Harper Lee" },
+      { title: "1984", author: "George Orwell" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
+      { title: "Pride and Prejudice", author: "Jane Austen" },
+      { title: "The Catcher in the Rye", author: "J.D. Salinger" }
+    ];
+
+    // Function to create HTML for each book
+    function createBookElement(book) {
+      const bookElement = document.createElement("div");
+      bookElement.classList.add("book");
+      bookElement.innerHTML = `
+        <div class="title">${book.title}</div>
+        <div class="author">${book.author}</div>
+      `;
+      return bookElement;
+    }
+
+    // Function to display the library
+    function displayLibrary(library) {
+      const libraryContainer = document.getElementById("library");
+      libraryContainer.innerHTML = ""; // Clear existing content
+
+      library.forEach(book => {
+        const bookElement = createBookElement(book);
+        libraryContainer.appendChild(bookElement);
+      });
+    }
+
+    // Display the library when the page loads
+    window.onload = function() {
+      displayLibrary(libraryData);
+    };
+  </script>
+</body>
+</html>
