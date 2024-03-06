@@ -18,25 +18,27 @@
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .library-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       grid-gap: 20px;
     }
     .book {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 15px;
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .book img {
-      width: 100%;
+      width: 120px;
       height: auto;
+      margin-bottom: 10px;
       border-radius: 8px;
     }
     .book-details {
-      margin-top: 10px;
+      text-align: center;
     }
     .title {
       font-weight: bold;
@@ -46,23 +48,22 @@
     .author {
       font-style: italic;
       color: #666;
+      cursor: pointer;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 style="text-align: center;">Digital Library</h1>
-    <div class="library-grid" id="library"></div>
-  </div>
+  <div class="container" id="library"></div>
 
   <script>
     // Sample array of books, authors, and image URLs
     const libraryData = [
-      { title: "To Kill a Mockingbird", author: "Harper Lee", imageUrl: "https://via.placeholder.com/150" },
-      { title: "1984", author: "George Orwell", imageUrl: "https://via.placeholder.com/150" },
-      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", imageUrl: "https://via.placeholder.com/150" },
-      { title: "Pride and Prejudice", author: "Jane Austen", imageUrl: "https://via.placeholder.com/150" },
-      { title: "The Catcher in the Rye", author: "J.D. Salinger", imageUrl: "https://via.placeholder.com/150" }
+      { title: "To Kill a Mockingbird", author: "Harper Lee", imageUrl: "https://via.placeholder.com/150", authorUrl: "https://www.example.com/harper-lee" },
+      { title: "1984", author: "George Orwell", imageUrl: "https://via.placeholder.com/150", authorUrl: "https://www.example.com/george-orwell" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", imageUrl: "https://via.placeholder.com/150", authorUrl: "https://www.example.com/f-scott-fitzgerald" },
+      { title: "Pride and Prejudice", author: "Jane Austen", imageUrl: "https://via.placeholder.com/150", authorUrl: "https://www.example.com/jane-austen" },
+      { title: "The Catcher in the Rye", author: "J.D. Salinger", imageUrl: "https://via.placeholder.com/150", authorUrl: "https://www.example.com/jd-salinger" }
     ];
 
     // Function to create HTML for each book
@@ -73,7 +74,7 @@
         <img src="${book.imageUrl}" alt="Book Cover">
         <div class="book-details">
           <div class="title">${book.title}</div>
-          <div class="author">${book.author}</div>
+          <div class="author" data-url="${book.authorUrl}">${book.author}</div>
         </div>
       `;
       return bookElement;
@@ -82,13 +83,23 @@
     // Function to display the library
     function displayLibrary(library) {
       const libraryContainer = document.getElementById("library");
-      libraryContainer.innerHTML = ""; // Clear existing content
 
       library.forEach(book => {
         const bookElement = createBookElement(book);
         libraryContainer.appendChild(bookElement);
       });
     }
+
+    // Open author URL when clicked
+    document.addEventListener('click', function(event) {
+      const authorElement = event.target.closest('.author');
+      if (authorElement) {
+        const authorUrl = authorElement.getAttribute('data-url');
+        if (authorUrl) {
+          window.open(authorUrl, '_blank');
+        }
+      }
+    });
 
     // Display the library when the page loads
     window.onload = function() {
