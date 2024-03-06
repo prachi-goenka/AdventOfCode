@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel to Table</title>
+</head>
+<body>
+  <input type="file" id="fileInput">
+  <div id="tableContainer"></div>
+
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var data = new Uint8Array(e.target.result);
+        var workbook = XLSX.read(data, {type: 'array'});
+
+        var html = '<table border="1">';
+        var sheet = workbook.Sheets[workbook.SheetNames[0]];
+        var range = XLSX.utils.decode_range(sheet['!ref']);
+
+        for (var R = range.s.r; R <= range.e.r; ++R) {
+          html += '<tr>';
+          for (var C = range.s.c; C <= range.e.c; ++C) {
+            var cellAddress = {c:C, r:R};
+            var cellRef = XLSX.utils.encode_cell(cellAddress);
+            var cell = sheet[cellRef];
+            var value = cell ? cell.v : '';
+            html += '<td>' + value + '</td>';
+          }
+          html += '</tr>';
+        }
+        html += '</table>';
+        document.getElementById('tableContainer').innerHTML = html;
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  </script>
+</body>
+</html>
